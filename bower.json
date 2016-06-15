@@ -2,23 +2,22 @@
   "name": "app",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "~0.0.0",
-    "jquery": "~0.0.0",
-    "angular-ui-router": "~0.0.0",
-    "angular-http-auth": "~0.0.0",
-    "bootstrap": "~0.0.0"
+    "jquery": "^0.0.0",
+    "angular": "^0.0.0",
+    "angular-ui-router": "^0.0.0",
+    "angular-http-auth": "^0.0.0",
+    "bootstrap": "^0.0.0"
   },
   "overrides": {
     "bootstrap": {
       "main": [
         "less/bootstrap.less",
-        "dist/js/bootstrap.js",
         "dist/css/bootstrap.css",
         "dist/fonts/glyphicons-halflings-regular.eot",
         "dist/fonts/glyphicons-halflings-regular.svg",
         "dist/fonts/glyphicons-halflings-regular.ttf",
         "dist/fonts/glyphicons-halflings-regular.woff",
-	"dist/fonts/glyphicons-halflings-regular.woff2"
+        "dist/fonts/glyphicons-halflings-regular.woff2"
       ]
     }
   },

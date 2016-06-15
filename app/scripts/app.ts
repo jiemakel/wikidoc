@@ -5,8 +5,7 @@ namespace app {
     $urlRouterProvider.otherwise('/')
     $stateProvider.state('main', {
       url: '/',
-      templateUrl: 'partials/main.html',
-      controller: 'MainController'
+      template: '<main></main>'
       })
   })
   }
