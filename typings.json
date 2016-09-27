@@ -1,9 +1,0 @@
-{
-  "name": "app",
-  "version": false,
-  "globalDevDependencies": {
-    "angular": "registry:dt/angular",
-    "angular-ui-router": "registry:dt/angular-ui-router",
-    "jquery": "registry:dt/jquery"
-  }
-}
