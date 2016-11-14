@@ -3,11 +3,13 @@ var nib = require('nib');
 var $ = require('gulp-load-plugins')();
 
 gulp.task('styles', function() {
-  return gulp.src("app/styles/main.styl")
+  return gulp.src("app/**/*.styl")
     .pipe($.plumber({ errorHandler: $.notify.onError("<%= error.stack %>") }))
+    .pipe($.sourcemaps.init())
     .pipe($.stylus({ use: [nib()] }))
+    .pipe($.sourcemaps.write())
     .pipe($.autoprefixer("last 1 version"))
-    .pipe(gulp.dest(".tmp/styles"));
+    .pipe(gulp.dest(".tmp"));
 });
 
 var tsProject = $.typescript.createProject('tsconfig.json',{typescript:require('typescript')});
@@ -15,7 +17,7 @@ gulp.task('scripts', function() {
   return tsProject.src()
     .pipe($.plumber({ errorHandler: $.notify.onError("<%= error.stack %>") }))
     .pipe($.sourcemaps.init())
-    .pipe($.typescript(tsProject)).js
+    .pipe(tsProject()).js
     .pipe($.typescriptAngular({ moduleName: 'app' }))
     .pipe($.sourcemaps.write())
     .pipe(gulp.dest(".tmp"));
@@ -41,17 +43,17 @@ gulp.task('docs', function() {
         out: "docs/",
         name: "app"
     }))
-});
-
-gulp.task('lint', function() {
-  return gulp.src('app/scripts/**/*.ts')
-    .pipe($.tslint({ formatter: 'verbose' }))
-    .pipe($.tslint.report())
-});
+})
 
 gulp.task('clean', function(cb){
   return require('del')(['.tmp', 'dist'], cb);
 });
+
+gulp.task('lint', function() {
+  return gulp.src('app/components/**/*.ts')
+    .pipe($.tslint({ formatter: 'verbose' }))
+    .pipe($.tslint.report())
+})
 
 gulp.task('build', function(cb){
   return require('run-sequence')('clean', 'wire', ['templates', 'styles', 'scripts'], cb);

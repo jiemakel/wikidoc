@@ -3,7 +3,7 @@ var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
 
 gulp.task('wire:styles', function() {
-  return gulp.src("app/styles/*.styl")
+  return gulp.src("app/styles/main.styl")
     .pipe(wiredep({
       directory: "app/bower_components",
       fileTypes: {
@@ -20,15 +20,24 @@ gulp.task('wire:styles', function() {
         }
       }
     }))
+    .pipe($.inject(gulp.src(["app/components/**/*.styl","app/styles/*.styl","!app/styles/main.styl"], {read:false}), {
+          starttag: "// inject:styles",
+          endtag: "// endinject",
+          addRootSlash: false,
+          ignorePath: 'app/',
+          transform: function(filepath) {
+            return '@import \'../'+filepath.replace(/\.styl$/g,'\.css')+'\''
+          }
+        }))
     .pipe(gulp.dest("app/styles"));
 });
 
-gulp.task('wire:scripts', function() {
+gulp.task('wire:scripts-to-templates', function() {
   return gulp.src("app/*.pug")
     .pipe(wiredep({
       directory: "app/bower_components"
     }))
-    .pipe($.inject(gulp.src(["app/scripts/**/*.ts","!app/scripts/app.ts","!app/scripts/worker-app.ts"], {read:false}), {
+    .pipe($.inject(gulp.src(["app/components/**/*.ts"], {read:false}), {
           starttag: "// inject:scripts",
           endtag: "// endinject",
           addRootSlash: false,
@@ -40,4 +49,4 @@ gulp.task('wire:scripts', function() {
     .pipe(gulp.dest("app"));
 });
 
-gulp.task('wire', ['wire:styles', 'wire:scripts'])
+gulp.task('wire', ['wire:styles', 'wire:scripts-to-templates'])
