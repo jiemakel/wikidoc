@@ -58,7 +58,7 @@ namespace app {
         this.requestLog.push(response)
         return {
           title: r['title'],
-          url: 'http://api.finna.fi' + r['images'][0],
+          url: 'https://api.finna.fi' + r['images'][0],
           link: 'http://finna.fi/Record/' + encodeURIComponent(r['id']),
           source: 'Finna'
         }
