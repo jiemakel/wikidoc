@@ -63,7 +63,7 @@ namespace app {
           source: 'Finna'
         }
       })))
-      this.$http.get('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=bd6f075a5409b85d4ac2fe27aad1b182&format=json&nojsoncallback=1', { params: {
+      this.$http.get('https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=bd6f075a5409b85d4ac2fe27aad1b182&format=json&nojsoncallback=1&per_page=20', { params: {
         text: this.mainTitle
       }}).then(response => this.images = this.images.concat(response.data['photos']['photo'].map(r => {
         this.requestLog.push(response)
@@ -75,7 +75,8 @@ namespace app {
         }
       })))
     }
-    constructor(private $http: angular.IHttpService, private $sce: angular.ISCEService) {
+    constructor(private $http: angular.IHttpService, private $sce: angular.ISCEService, $stateParams: {}) {
+      if ($stateParams['title']) this.mainTitle = $stateParams['title']
       this.update()
     }
   }
