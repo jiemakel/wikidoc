@@ -10,7 +10,7 @@ namespace app {
     public edit: boolean = false
     public requestLog: {}[] = []
     public getTitles(title: string): angular.IPromise<{}[]> {
-      return this.$http.get('http://ldf.fi/corsproxy/fi.wikipedia.org/w/api.php?action=query&formatversion=2&generator=prefixsearch&gpslimit=10&prop=pageimages%7Cpageterms&piprop=thumbnail&pithumbsize=50&pilimit=10&redirects=&format=json', { params: {
+      return this.$http.get('https://ldf.fi/corsproxy/fi.wikipedia.org/w/api.php?action=query&formatversion=2&generator=prefixsearch&gpslimit=10&prop=pageimages%7Cpageterms&piprop=thumbnail&pithumbsize=50&pilimit=10&redirects=&format=json', { params: {
         gpssearch: title
       }}).then(response => {
         this.requestLog = [ response ]
@@ -27,14 +27,14 @@ namespace app {
       this.requestLog = []
       this.edit = false
       this.images = []
-      this.$http.get('http://ldf.fi/corsproxy/fi.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=', { params: {
+      this.$http.get('https://ldf.fi/corsproxy/fi.wikipedia.org/w/api.php?format=json&action=query&prop=extracts&exintro=&explaintext=', { params: {
         titles: this.mainTitle
       }}).then(response => {
         this.requestLog.push(response)
         let pages: {} = response.data['query']['pages']
         for (let page in pages) this.description = pages[page]['extract']
       })
-      this.$http.get('http://ldf.fi/corsproxy/fi.wikipedia.org/w/api.php?action=query&list=search&utf8=&format=json', { params: {
+      this.$http.get('https://ldf.fi/corsproxy/fi.wikipedia.org/w/api.php?action=query&list=search&utf8=&format=json', { params: {
         srsearch: '"' + this.mainTitle + '"'
       }}).then(response => {
         this.requestLog.push(response)
@@ -46,13 +46,13 @@ namespace app {
           }
         })
       })
-      this.$http.get('http://ldf.fi/corsproxy/fi.wikipedia.org/w/api.php?action=query&formatversion=2&generator=prefixsearch&gpslimit=10&prop=pageimages%7Cpageterms&piprop=thumbnail&pithumbsize=500&pilimit=10&redirects=&format=json', { params: {
+      this.$http.get('https://ldf.fi/corsproxy/fi.wikipedia.org/w/api.php?action=query&formatversion=2&generator=prefixsearch&gpslimit=10&prop=pageimages%7Cpageterms&piprop=thumbnail&pithumbsize=500&pilimit=10&redirects=&format=json', { params: {
         gpssearch: this.mainTitle
       }}).then(response => {
         this.requestLog.push(response)
         this.mainImage = response.data['query']['pages'][0]['thumbnail']['source']
       })
-      this.$http.get('http://api.finna.fi/api/v1/search?type=AllFields&sort=relevance%2Cid%20asc&page=1&limit=20&prettyPrint=true&lng=fi', { params: {
+      this.$http.get('https://api.finna.fi/api/v1/search?type=AllFields&sort=relevance%2Cid%20asc&page=1&limit=20&prettyPrint=true&lng=fi', { params: {
         lookfor: this.mainTitle
       }}).then(response => this.images = this.images.concat(response.data['records'].filter(r => r['images'] && !r['images'].isEmpty).map(r => {
         this.requestLog.push(response)
