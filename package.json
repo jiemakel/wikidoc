@@ -56,8 +56,5 @@
   },
   "scripts": {
     "postinstall": "bower install"
-  },
-  "dependencies": {
-    "@types/d3": "4.3.0"
   }
 }
