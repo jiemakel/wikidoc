@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app" ng-hint>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <link rel="stylesheet" href="styles/vendor-8130719dff.css">
+    <link rel="stylesheet" href="styles/main-8a3f2c27d9.css">
+    <title>app</title>
+  </head>
+  <body>
+    <div class="modal" ng-class="authOpen ? 'modal-open fade in' : ''" ng-style="authOpen ? {display:'block'} : {}">
+      <div class="modal-dialog" ng-show="authOpen">
+        <form class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Authentication required</h4>
+          </div>
+          <div class="modal-body">
+            <div class="form-group">
+              <label>Username:</label>
+              <input class="form-control" type="text" ng-model="username">
+            </div>
+            <div class="form-group">
+              <label>Password:</label>
+              <input class="form-control" type="password" ng-model="password">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-success" ng-click="setAuth()">Ok</button>
+            <button class="btn btn-danger" ng-click="dismissAuth()">Cancel</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="scripts/vendor-5769d4533c.js"></script>
+    <script src="scripts/main-fe48f6c4f2.js"></script>
+    <main ui-view=""></main>
+    <div class="uib-modal-backdrop fade in" ng-show="authOpen"></div>
+  </body>
+</html>
